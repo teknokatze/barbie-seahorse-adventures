@@ -1,9 +1,9 @@
 import pygame
 from pygame.locals import *
 
-from cnst import *
+from .cnst import *
 
-import sprite
+from . import sprite
         
 def t_init(g,r,n,hit_groups,hit,*params):
     t = sprite.Sprite(r,n)
@@ -31,7 +31,7 @@ def tr_init(g,r,n,hit_groups,hit,*params):
     return t
 
 def tile_to_sprite(g,s):
-    import tiles
+    from . import tiles
     x,y = s.rect.centerx/TW,s.rect.centery/TH
     tiles.t_put(g,(x,y),0)
     

@@ -1,9 +1,9 @@
 import pygame
 
-from cnst import *
-import tiles
-import player
-import bubble
+from .cnst import *
+from . import tiles
+from . import player
+from . import bubble
 
 def hit_block(g,a,b,top=1,right=1,bottom=1,left=1):
     #print 'you hit a block'
@@ -24,7 +24,7 @@ def hit_block(g,a,b,top=1,right=1,bottom=1,left=1):
         cur.top = r.bottom
         #if hasattr(b,'vy'): b.vy = 0
         if hasattr(b,'standing') and b.standing != None:
-            import sprite
+            from . import sprite
             sprite.stop_standing(g,b)
     if left and prev.right <= r.left and cur.right > r.left:
         got_hit = True
@@ -53,8 +53,8 @@ def hit_fally(g,a,b,top=1,right=1,bottom=1,left=1):
     if not hasattr(b,'standing'): return
     if b.standing != a: return
     
-    import tile
-    import sprite
+    from . import tile
+    from . import sprite
     tile.tile_to_sprite(g,a)
     
     s = a
@@ -116,7 +116,7 @@ def hit_item(g,a,b,pts):
     g.game.score += pts
     tile_explode(g,a)
     
-    import sprites
+    from . import sprites
     sprites.points.init(g,a.rect,pts)
 
 def hit_power(g,a,b):
@@ -140,7 +140,7 @@ def tile_close(g,a,b):
 def tile_explode(g,a):
     g.game.sfx['explode'].play()
     tiles.t_put(g,a.pos,0)
-    import tile
+    from . import tile
     tile.tile_to_sprite(g,a)
     s = a
     s.hit_groups = set()

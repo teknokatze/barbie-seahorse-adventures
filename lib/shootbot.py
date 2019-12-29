@@ -1,11 +1,11 @@
 import pygame
 from pygame.locals import *
 
-import sprite
-import player
-import laser
+from . import sprite
+from . import player
+from . import laser
 
-from cnst import *
+from .cnst import *
 
 def init(g,r,n,facing = 'left',*params):
     s = sprite.Sprite3(g,r,'shootbot-%s-0' % (facing),(0,0,18,24))

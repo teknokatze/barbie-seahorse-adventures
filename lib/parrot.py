@@ -1,10 +1,10 @@
 import pygame
 from pygame.locals import *
 
-from cnst import *
+from .cnst import *
 
-import sprite
-import player
+from . import sprite
+from . import player
 
 def init(g,r,n,vx,*params):
     s = sprite.Sprite3(g,r,'parrot/left-0',(0,3,24,10)) #3

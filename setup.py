@@ -1,5 +1,3 @@
-#Phil's discount setup script
-#enter your params here....
 cfg = {
     'name':'barbie',
     'version':'1.0',

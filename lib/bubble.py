@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import *
 
-import sprite
-import capsule
+from . import sprite
+from . import capsule
 
 def init(g,r,p, big=False):
     if not hasattr(g,'bubble_count'):

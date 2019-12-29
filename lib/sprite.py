@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 
-from cnst import *
+from .cnst import *
 
 class Sprite:
     def __init__(self,r,n):

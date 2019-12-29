@@ -1,6 +1,6 @@
-from cnst import *
+from .cnst import *
 
-import tiles
+from . import tiles
 
 #def bounds(g,r,n,*params):
     #pos = r.centerx/TW,r.centery/TH

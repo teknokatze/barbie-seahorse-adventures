@@ -1,11 +1,11 @@
 import pygame
 from pygame.locals import *
 
-import sprite
-import player
+from . import sprite
+from . import player
 #import laser
 
-from cnst import *
+from .cnst import *
 
 def init(g,r,n,facing,*params):
     s = sprite.Sprite3(g,r,'brobo-%s-0' % (facing),(0,0,30,37))

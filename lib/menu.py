@@ -3,13 +3,13 @@ import os
 import pygame
 from pygame.locals import *
 
-from pgu import engine
+from .pgu import engine
 
-import data
+from . import data
 
-from cnst import *
+from .cnst import *
 
-import levels
+from . import levels
 
 class Menu(engine.State):
     def __init__(self,game):
@@ -80,7 +80,7 @@ class Menu(engine.State):
         y += 24
         
         x = 90
-        for n in xrange(0,len(self.items)):
+        for n in range(0,len(self.items)):
             text,value = self.items[n]
             text = text.replace('L',self.levels[self.game.lcur][1])
             c = (0x00,0x00,0x00)
@@ -137,12 +137,12 @@ class Menu(engine.State):
             if value == 'start':
                 self.game.init_play()
                 self.game.lcur = 0
-                import level
+                from . import level
                 l =  level.Level(self.game,None,self)
                 return Transition(self.game,l)
             elif value == 'play':
                 self.game.init_play()
-                import level
+                from . import level
                 l =  level.Level(self.game,None,self)
                 return Transition(self.game,l)
             elif value == 'quit':
@@ -166,7 +166,7 @@ class Transition(engine.State):
         self.inc = 0
         
     def init2(self):
-        if hasattr(self.next,'init') and not hasattr(self.next,'_init'):
+        if hasattr(self.__next__,'init') and not hasattr(self.__next__,'_init'):
             self.next._init = 0
             self.next.init()
         self.s2 = self.game.screen.convert()
@@ -182,7 +182,7 @@ class Transition(engine.State):
         if self.frame == self.total:
             self.game.screen.blit(self.s2,(0,0))
             self.game.flip()
-            return self.next
+            return self.__next__
         
     def update(self,screen):
         return self.paint(screen)
@@ -227,11 +227,11 @@ class Intro(engine.State):
     def loop(self):
         self.frame += 1
         if self.frame == FPS*7:
-            return Transition(self.game,Intro2(self.game,self.next))
+            return Transition(self.game,Intro2(self.game,self.__next__))
         
     def event(self,e):
         if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump','bubble','menu','exit')):
-            return Transition(self.game,self.next)
+            return Transition(self.game,self.__next__)
         
     def paint(self,screen):
         screen.fill((0,0,0))
@@ -286,11 +286,11 @@ class Intro2(engine.State):
     def loop(self):
         self.frame += 1
         if self.frame == FPS*2:
-            return Transition(self.game,self.next)
+            return Transition(self.game,self.__next__)
     
     def event(self,e):
         if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump','bubble','menu','exit')):
-            return Transition(self.game,self.next)
+            return Transition(self.game,self.__next__)
         
     def paint(self,screen):
         #screen.fill((0,0,0))
@@ -350,7 +350,7 @@ class Pause(engine.State):
         
     def event(self,e):
         if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump','bubble','menu','exit')):
-            return self.next
+            return self.__next__
         
     def paint(self,screen):
         screen.blit(self.bkgr,(0,0))
@@ -387,7 +387,7 @@ class Credits(engine.State):
         
     def event(self,e):
         if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump','bubble','menu','exit')):
-            return Transition(self.game,self.next)
+            return Transition(self.game,self.__next__)
         
     def paint(self,screen):
         x = self.frame%(self.bkgr.get_width())
@@ -440,7 +440,7 @@ class Help(engine.State):
         
     def event(self,e):
         if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump','bubble','menu','exit')):
-            return Transition(self.game,self.next)
+            return Transition(self.game,self.__next__)
         
     def paint(self,screen):
         x = self.frame%(self.bkgr.get_width())
